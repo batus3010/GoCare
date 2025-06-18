@@ -1,6 +1,9 @@
 package patientModel
 
-import "GoCare/common"
+import (
+	"GoCare/common"
+	"strings"
+)
 
 type PatientCreate struct {
 	common.SQLModel
@@ -13,4 +16,16 @@ type PatientCreate struct {
 
 func (PatientCreate) TableName() string {
 	return Patient{}.TableName()
+}
+
+func (data PatientCreate) Validate() error {
+	data.FirstName = strings.TrimSpace(data.FirstName)
+	if data.FirstName == "" {
+		return common.ErrFirstNameIsBlank
+	}
+	data.LastName = strings.TrimSpace(data.LastName)
+	if data.LastName == "" {
+		return common.ErrLastNameIsBlank
+	}
+	return nil
 }
