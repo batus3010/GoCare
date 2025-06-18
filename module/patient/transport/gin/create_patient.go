@@ -2,9 +2,9 @@ package patientGin
 
 import (
 	"GoCare/components/appctx"
-	"GoCare/module/patient/patientBiz"
-	"GoCare/module/patient/patientModel"
-	"GoCare/module/patient/patientStorage"
+	"GoCare/module/patient/biz"
+	"GoCare/module/patient/model"
+	"GoCare/module/patient/storage"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

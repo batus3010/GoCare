@@ -2,7 +2,7 @@ package patientStorage
 
 import (
 	"GoCare/common"
-	"GoCare/module/patient/patientModel"
+	"GoCare/module/patient/model"
 	"context"
 )
 
