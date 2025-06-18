@@ -15,15 +15,13 @@ func CreatePatient(appCtx appctx.AppContext) func(*gin.Context) {
 		var newData patientModel.PatientCreate
 
 		if err := c.ShouldBind(&newData); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
+			panic(common.ErrorInvalidRequest(err))
 		}
 
 		store := patientStorage.NewSqlStore(appCtx.GetMainDBConnection())
 		biz := patientBiz.NewCreateNewPatientBiz(store)
 		if err := biz.CreateNewPatient(c.Request.Context(), &newData); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
+			panic(err)
 		}
 		c.JSON(http.StatusOK, common.SimpleSuccessResponse(newData.Id))
 	}

@@ -13,11 +13,11 @@ func ListPatient(appCtx appctx.AppContext) func(gin *gin.Context) {
 	return func(c *gin.Context) {
 		var paging common.Paging
 		if err := c.ShouldBind(&paging); err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			panic(common.ErrorInvalidRequest(err))
 		}
 
 		if err := paging.Process(); err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			panic(common.ErrorInvalidRequest(err))
 		}
 		store := patientStorage.NewSqlStore(appCtx.GetMainDBConnection())
 		biz := patientBiz.NewListPatientBiz(store)
@@ -25,8 +25,7 @@ func ListPatient(appCtx appctx.AppContext) func(gin *gin.Context) {
 		result, err := biz.ListPatient(c.Request.Context(), &paging)
 
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			return
+			panic(err)
 		}
 		c.JSON(http.StatusOK, common.NewSuccessResponse(result, paging))
 	}

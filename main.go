@@ -2,6 +2,7 @@ package main
 
 import (
 	"GoCare/components/appctx"
+	"GoCare/middleware"
 	"GoCare/module/patient/transport/gin"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
@@ -23,6 +24,7 @@ func main() {
 	appCtx := appctx.NewAppContext(db)
 
 	r := gin.Default()
+	r.Use(middleware.Recover(appCtx))
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",

@@ -19,6 +19,9 @@ func NewCreateNewPatientBiz(store CreatePatientStore) *createNewPatientBiz {
 }
 
 func (biz createNewPatientBiz) CreateNewPatient(ctx context.Context, data *patientModel.PatientCreate) error {
+	if err := data.Validate(); err != nil {
+		return common.ErrorInvalidRequest(err)
+	}
 	if err := biz.store.Create(ctx, data); err != nil {
 		return common.ErrorCannotCreateEntity(patientModel.EntityName, err)
 	}

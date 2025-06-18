@@ -14,16 +14,14 @@ func GetPatient(appCtx appctx.AppContext) func(*gin.Context) {
 	return func(c *gin.Context) {
 		id, err := strconv.Atoi(c.Param("id"))
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
+			panic(common.ErrorInvalidRequest(err))
 		}
 
 		store := patientStorage.NewSqlStore(appCtx.GetMainDBConnection())
 		biz := patientBiz.NewGetPatientBiz(store)
 		data, err := biz.GetPatient(c.Request.Context(), id)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			return
+			panic(err)
 		}
 		c.JSON(http.StatusOK, common.SimpleSuccessResponse(data))
 	}

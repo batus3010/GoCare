@@ -15,22 +15,19 @@ func UpdatePatient(appCtx appctx.AppContext) func(*gin.Context) {
 	return func(c *gin.Context) {
 		id, err := strconv.Atoi(c.Param("id"))
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
+			panic(common.ErrorInvalidRequest(err))
 		}
 		var data patientModel.PatientUpdate
 
 		if err := c.ShouldBind(&data); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
+			panic(common.ErrorInvalidRequest(err))
 		}
 
 		store := patientStorage.NewSqlStore(appCtx.GetMainDBConnection())
 		biz := patientBiz.NewUpdatePatientBiz(store)
 
 		if err := biz.UpdatePatient(c.Request.Context(), id, &data); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
+			panic(err)
 		}
 
 		c.JSON(http.StatusOK, common.SimpleSuccessResponse(true))
