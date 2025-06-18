@@ -1,14 +1,17 @@
 package main
 
 import (
+	"GoCare/components/appctx"
+	"GoCare/module/patient/transport/patientGin"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
+	"os"
 )
 
 func main() {
-	dsn := "host=127.0.0.1 user=batus password=123456 dbname=clinicdb port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+	dsn := os.Getenv("DB_CONN_STR")
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
@@ -16,11 +19,23 @@ func main() {
 	log.Println(db)
 
 	db = db.Debug()
+
+	appCtx := appctx.NewAppContext(db)
+
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
 	})
-	r.Run("localhost:6969")
+
+	v1 := r.Group("/v1")
+	{
+		patient := v1.Group("/patients")
+		{
+			patient.POST("", patientGin.CreatePatient(appCtx))
+		}
+	}
+
+	r.Run("localhost:8080")
 }
