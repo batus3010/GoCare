@@ -2,7 +2,7 @@ package main
 
 import (
 	"GoCare/components/appctx"
-	"GoCare/module/patient/transport/patientGin"
+	"GoCare/module/patient/transport/gin"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -34,6 +34,7 @@ func main() {
 		patient := v1.Group("/patients")
 		{
 			patient.POST("", patientGin.CreatePatient(appCtx))
+			patient.GET("/:id", patientGin.GetPatient(appCtx))
 		}
 	}
 
