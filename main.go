@@ -37,6 +37,7 @@ func main() {
 			patient.GET("/:id", patientGin.GetPatient(appCtx))
 			patient.GET("", patientGin.ListPatient(appCtx))
 			patient.PUT("/:id", patientGin.UpdatePatient(appCtx))
+			patient.DELETE("/:id", patientGin.DeletePatient(appCtx))
 		}
 	}
 
