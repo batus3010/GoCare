@@ -36,6 +36,7 @@ func main() {
 			patient.POST("", patientGin.CreatePatient(appCtx))
 			patient.GET("/:id", patientGin.GetPatient(appCtx))
 			patient.GET("", patientGin.ListPatient(appCtx))
+			patient.PUT("/:id", patientGin.UpdatePatient(appCtx))
 		}
 	}
 
