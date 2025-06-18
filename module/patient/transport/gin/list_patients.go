@@ -28,6 +28,6 @@ func ListPatient(appCtx appctx.AppContext) func(gin *gin.Context) {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusOK, result)
+		c.JSON(http.StatusOK, common.NewSuccessResponse(result, paging))
 	}
 }

@@ -1,6 +1,7 @@
 package patientGin
 
 import (
+	"GoCare/common"
 	"GoCare/components/appctx"
 	patientBiz "GoCare/module/patient/biz"
 	patientModel "GoCare/module/patient/model"
@@ -32,6 +33,6 @@ func UpdatePatient(appCtx appctx.AppContext) func(*gin.Context) {
 			return
 		}
 
-		c.JSON(http.StatusOK, true)
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(true))
 	}
 }

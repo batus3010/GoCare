@@ -1,6 +1,7 @@
 package patientGin
 
 import (
+	"GoCare/common"
 	"GoCare/components/appctx"
 	"GoCare/module/patient/biz"
 	"GoCare/module/patient/model"
@@ -24,6 +25,6 @@ func CreatePatient(appCtx appctx.AppContext) func(*gin.Context) {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusOK, gin.H{"data": newData.Id})
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(newData.Id))
 	}
 }

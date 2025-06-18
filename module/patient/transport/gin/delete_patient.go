@@ -1,6 +1,7 @@
 package patientGin
 
 import (
+	"GoCare/common"
 	"GoCare/components/appctx"
 	patientBiz "GoCare/module/patient/biz"
 	patientStorage "GoCare/module/patient/storage"
@@ -24,6 +25,6 @@ func DeletePatient(appCtx appctx.AppContext) func(*gin.Context) {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusOK, true)
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(true))
 	}
 }
