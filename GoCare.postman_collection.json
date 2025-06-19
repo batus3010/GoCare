@@ -1,0 +1,239 @@
+{
+	"info": {
+		"_postman_id": "6e236548-d818-4c5d-9890-9439d874ad54",
+		"name": "GoCare",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "34431369"
+	},
+	"item": [
+		{
+			"name": "Patient CRUD",
+			"item": [
+				{
+					"name": "Create Patient",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first-name\": \"Hoa\",\r\n    \"last-name\": \"My\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{DOMAIN}}/v1/patients"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Patient Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{RECEPTIONIST_TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/v1/patients/:id",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"v1",
+								"patients",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get list patients",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{DOCTOR_TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{DOMAIN}}/v1/patients"
+					},
+					"response": []
+				},
+				{
+					"name": "Update patient",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{DOCTOR_TOKEN}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first-name\": \"Bui Updated\",\r\n    \"last-name\": \"Tu Updated\",\r\n    \"address\": \"New address\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/v1/patients/:id",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"v1",
+								"patients",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete patient",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{RECEPTIONIST_TOKEN}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/v1/patients/:id",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"v1",
+								"patients",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"doctor@gmail.com\",\r\n    \"password\": \"doctor\",\r\n    \"role\": \"doctor\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{DOMAIN}}/v1/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"receptionist@gmail.com\",\r\n    \"password\": \"receptionist\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{DOMAIN}}/v1/authenticate"
+					},
+					"response": []
+				},
+				{
+					"name": "Profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{USER_TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tubuianh@gmail.com\",\r\n    \"password\": \"pass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{DOMAIN}}/v1/profile"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctor APIs",
+			"item": []
+		},
+		{
+			"name": "ping",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{DOMAIN}}/ping"
+			},
+			"response": []
+		}
+	]
+}

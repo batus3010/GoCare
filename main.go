@@ -21,7 +21,6 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Println(db)
-
 	db = db.Debug()
 
 	appCtx := appctx.NewAppContext(db, secretKey)
