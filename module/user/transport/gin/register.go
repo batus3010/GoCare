@@ -21,8 +21,9 @@ func Register(appCtx appctx.AppContext) func(ctx *gin.Context) {
 		}
 
 		store := userStorage.NewSQLStore(db)
-		md5 := hasher.NewMD5Hash()
-		biz := userBiz.NewRegisterBusiness(store, md5)
+		//md5 := hasher.NewMD5Hash()
+		hash := hasher.NewFNVHasher()
+		biz := userBiz.NewRegisterBusiness(store, hash)
 
 		if err := biz.Register(ctx.Request.Context(), &data); err != nil {
 			panic(err)

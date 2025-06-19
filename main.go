@@ -14,6 +14,7 @@ import (
 
 func main() {
 	dsn := os.Getenv("DB_CONN_STR")
+	secretKey := os.Getenv("SYSTEM_SECRET")
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
@@ -22,7 +23,7 @@ func main() {
 
 	db = db.Debug()
 
-	appCtx := appctx.NewAppContext(db)
+	appCtx := appctx.NewAppContext(db, secretKey)
 
 	r := gin.Default()
 	r.Use(middleware.Recover(appCtx))
@@ -35,6 +36,7 @@ func main() {
 	v1 := r.Group("/v1")
 	{
 		v1.POST("/register", userGin.Register(appCtx))
+		v1.POST("/authenticate", userGin.Login(appCtx))
 		patient := v1.Group("/patients")
 		{
 			patient.POST("", patientGin.CreatePatient(appCtx))

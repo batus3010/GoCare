@@ -19,6 +19,7 @@ func randomSequence(n int) string {
 	return string(b)
 }
 
+// GenSalt is used to combine with password, generate a different hash for the same password
 func GenSalt(length int) string {
 	if length < 0 {
 		length = 50
