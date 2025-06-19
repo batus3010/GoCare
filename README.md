@@ -90,3 +90,35 @@ GoCare/                      # root project folder
 ├── main.go                  # application bootstrap (alternative entry)
 ├── go.mod                   # module definition
 └── README.md                # project documentation
+```
+
+### API Endpoints
+
+#### Authentication
+
+| Method | Path               | Description                    |
+| ------ | ------------------ | ------------------------------ |
+| POST   | `/v1/register`     | Create a new receptionist user |
+| POST   | `/v1/authenticate` | Login and receive JWT token    |
+
+#### Patient Management (Protected)
+
+_Requires header_: `Authorization: Bearer <token>`
+
+**Receptionist (role = `receptionist`)**
+
+| Method | Path               | Description                     |
+| ------ | ------------------ | ------------------------------- |
+| POST   | `/v1/patients`     | Create patient                  |
+| GET    | `/v1/patients/:id` | Get patient by ID               |
+| GET    | `/v1/patients`     | List patients (with pagination) |
+| PUT    | `/v1/patients/:id` | Update patient                  |
+| DELETE | `/v1/patients/:id` | Soft-delete patient             |
+
+**Doctor (role = `doctor`)**
+
+| Method | Path               | Description               |
+| ------ | ------------------ | ------------------------- |
+| GET    | `/v1/patients`     | List patients             |
+| GET    | `/v1/patients/:id` | Get patient by ID         |
+| PUT    | `/v1/patients/:id` | Update patient attributes |
