@@ -63,3 +63,30 @@ go run main.go
 The server will listen on `http://localhost:8080` by default.
 ### Testing
 go run ./...
+
+### Project structure
+
+```text
+GoCare/                      # root project folder
+├── common/                  # common constants, errors, types
+├── components/              # shared infrastructure
+│   ├── appctx/              # application context (DB, config)
+│   ├── hasher/              # password hashing
+│   ├── tokenprovider/       # JWT provider interface and implementation
+│   └── middleware/          # Gin middleware (auth, recovery)
+├── module/                  # feature modules
+│   ├── user/                # user management (auth, register)
+│   │   ├── biz/             # business logic & unit tests
+│   │   ├── model/           # data models & DTOs
+│   │   ├── storage/         # database storage & integration tests
+│   │   └── transport/gin/   # HTTP handlers & transport tests
+│   └── patient/             # patient CRUD module
+│       ├── biz/
+│       ├── model/
+│       ├── storage/
+│       └── transport/gin/
+├── cmd/                     # optional entrypoints if using cmd structure
+│   └── server/              # server main.go
+├── main.go                  # application bootstrap (alternative entry)
+├── go.mod                   # module definition
+└── README.md                # project documentation
