@@ -36,7 +36,7 @@ func (business *loginBusiness) Login(ctx context.Context, data *userModel.UserLo
 		return nil, userModel.ErrEmailOrPasswordInvalid
 	}
 
-	passHashed := business.hasher.Hash(data.Password)
+	passHashed := business.hasher.Hash(data.Password + user.Salt)
 
 	if user.Password != passHashed {
 		return nil, userModel.ErrEmailOrPasswordInvalid
