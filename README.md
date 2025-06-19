@@ -55,3 +55,11 @@ Create a `.env` file or export:
 DB_CONN_STR="host=... user=... password=... dbname=... sslmode=disable"
 SYSTEM_SECRET="your_jwt_secret"
 HTTP_ADDR=":8080"
+```
+
+### Run the server
+go run main.go
+
+The server will listen on `http://localhost:8080` by default.
+### Testing
+go run ./...
