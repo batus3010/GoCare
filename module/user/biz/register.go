@@ -34,7 +34,6 @@ func (business *registerBusiness) Register(ctx context.Context, data *userModel.
 	salt := common.GenSalt(50)
 	data.Password = business.hasher.Hash(data.Password + salt)
 	data.Salt = salt
-	data.Role = "receptionist" // TODO: remove hard code
 
 	if err := business.registerStorage.CreateUser(ctx, data); err != nil {
 		return common.ErrorCannotCreateEntity(userModel.EntityUser, err)

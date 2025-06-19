@@ -17,7 +17,7 @@ func NewTokenJwtProvider(secret string) *jwtProvider {
 }
 
 type myClaims struct {
-	PayLoad tokenprovider.TokenPayLoad `json:"pay_load"`
+	PayLoad tokenprovider.TokenPayLoad `json:"payload"`
 	jwt.StandardClaims
 }
 

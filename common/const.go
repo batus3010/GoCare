@@ -9,3 +9,5 @@ var (
 	ErrAddressIsBlank   = errors.New("address cannot be blank")
 	ErrDataBeenDeleted  = errors.New("data has been deleted")
 )
+
+const CurrentUser = "receptionist"
